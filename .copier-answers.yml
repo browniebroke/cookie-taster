@@ -1,0 +1,23 @@
+# Changes here will be overwritten by Copier
+_commit: fb155a9
+_src_path: gh:browniebroke/pypackage-template
+add_me_as_contributor: true
+cli_name: cookie-taster
+copyright_year: '2025'
+documentation: true
+email: alla.brunoo@gmail.com
+full_name: Bruno Alla
+github_username: browniebroke
+has_cli: true
+initial_commit: true
+is_django_package: false
+open_source_license: MIT
+open_with_editor: true
+package_name: cookie_taster
+project_name: Cookie Taster
+project_short_description: A tool to test cookiecutter templates
+project_slug: cookie-taster
+run_uv_sync: true
+setup_github: true
+setup_pre_commit: true
+
