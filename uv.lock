@@ -183,7 +183,7 @@ wheels = [
 
 [[package]]
 name = "cookie-taster"
-version = "0.0.0"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "rich" },
