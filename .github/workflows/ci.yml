@@ -26,7 +26,6 @@ jobs:
         with:
           python-version: 3.x
       - uses: pre-commit/action@v3.0.1
-
   # Make sure commit messages follow the conventional commits convention:
   # https://www.conventionalcommits.org
   commitlint:
@@ -71,7 +70,6 @@ jobs:
 
   release:
     needs:
-      - lint
       - test
       - lint
       - commitlint
