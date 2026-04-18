@@ -115,8 +115,11 @@ exclude_lines = [
   'if __name__ == "__main__":',
 ]
 
-[tool.ty]
-terminal.error-on-warning = true
+[tool.ty.src]
+exclude = [ "docs" ]
+
+[tool.ty.terminal]
+error-on-warning = true
 
 [tool.semantic_release]
 version_toml = [ "pyproject.toml:project.version" ]
