@@ -39,7 +39,7 @@ scripts.cookie-taster = "cookie_taster.cli:app"
 dev = [
   "coverage",
   "pytest>=8,<9",
-  "pytest-cov>=6,<7",
+  "pytest-cov>=7,<8",
   "ty==0.0.31",
 ]
 docs = [
