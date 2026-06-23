@@ -38,13 +38,167 @@
 
 ---
 
-A tool to test cookiecutter templates
+A tool to test cookiecutter templates in parallel by generating all combinations of template options.
+
+## What is Cookie Taster?
+
+Cookie Taster helps you thoroughly test your [cookiecutter](https://www.cookiecutter.io) templates by:
+
+- 🔍 Automatically detecting all choice-based options in your template
+- 🎯 Letting you select multiple values for each option
+- 🚀 Generating all combinations of projects in parallel
+- ✅ Running customizable "tasters" to validate each generated project
+- 📊 Providing a beautiful TUI (Terminal User Interface) to monitor progress
+
+Perfect for template maintainers who want to ensure all option combinations work correctly!
 
 ## Installation
 
 Install this via pip (or your favourite package manager):
 
-`pip install cookie-taster`
+```bash
+pip install cookie-taster
+```
+
+Or with [uv](https://github.com/astral-sh/uv):
+
+```bash
+uv tool install cookie-taster
+```
+
+## Quick Start
+
+Launch the interactive TUI:
+
+```bash
+cookie-taster test
+```
+
+Or provide a template directly:
+
+```bash
+cookie-taster test https://github.com/cookiecutter/cookiecutter-django
+```
+
+Specify a custom output directory:
+
+```bash
+cookie-taster test -o ./my-test-projects
+```
+
+## How It Works
+
+1. **Template Input**: Provide a cookiecutter template (URL, local path, or any source cookiecutter accepts)
+2. **Option Selection**: Choose multiple values for each template option with choices
+3. **Generation & Testing**: Watch as Cookie Taster generates all combinations and runs tasters on each
+4. **Results**: Review which combinations passed and which failed
+
+## Creating Custom Tasters
+
+Tasters are plugins that validate generated projects. Create your own to test specific aspects of your templates!
+
+### Example Taster
+
+```python
+"""Example custom taster."""
+import pluggy
+from cookie_taster.plugins.models import (
+    ProjectInfo,
+    TasterContext,
+    TasterResult,
+    TasterStatus,
+)
+
+hookimpl = pluggy.HookimplMarker("cookie_taster")
+
+class MyCustomTaster:
+    @hookimpl
+    def get_taster_name(self) -> str:
+        return "my-custom-taster"
+
+    @hookimpl
+    def can_handle(self, context: TasterContext) -> bool:
+        # Only run if specific option is selected
+        return context.cookiecutter_context.get("use_docker") == "y"
+
+    @hookimpl
+    def test_project(self, project_info: ProjectInfo) -> TasterResult:
+        # Validate the generated project
+        dockerfile = project_info.path / "Dockerfile"
+
+        if dockerfile.exists():
+            return TasterResult(
+                taster_name=self.get_taster_name(),
+                status=TasterStatus.SUCCESS,
+                message="Dockerfile exists",
+            )
+        else:
+            return TasterResult(
+                taster_name=self.get_taster_name(),
+                status=TasterStatus.FAILURE,
+                message="Dockerfile missing",
+            )
+```
+
+### Installing Your Taster
+
+Register your taster as a plugin entry point in `pyproject.toml`:
+
+```toml
+[project.entry-points."cookie_taster.tasters"]
+my_custom = "my_package.tasters:MyCustomTaster"
+```
+
+Cookie Taster will automatically discover and load your taster!
+
+## Use Cases
+
+### Testing cookiecutter-django
+
+```bash
+cookie-taster test https://github.com/cookiecutter/cookiecutter-django
+```
+
+Select multiple options for:
+
+- Cloud providers (AWS, GCP, Azure, etc.)
+- Database options (PostgreSQL, MySQL)
+- CI systems (GitHub Actions, GitLab CI)
+- And more!
+
+Create tasters to validate:
+
+- Docker configurations for each platform
+- CI pipeline files
+- Database setup scripts
+- Deployment configurations
+
+### Validating Your Own Templates
+
+Ensure all option combinations in your template work correctly:
+
+1. Run Cookie Taster with your template
+2. Select all options you want to test
+3. Create custom tasters for your specific validation needs
+4. Get a comprehensive report of what works and what doesn't
+
+## Features
+
+- ✨ **Interactive TUI** - Beautiful terminal interface powered by [Textual](https://textual.textualize.io/)
+- 🔌 **Plugin System** - Extensible taster plugins using [pluggy](https://pluggy.readthedocs.io/)
+- ⚡ **Parallel Generation** - Generate multiple projects efficiently
+- 📋 **Combination Explosion** - Automatically creates all permutations of your selections
+- 🎯 **Smart Tasters** - Tasters can decide which projects they can handle
+- 📊 **Real-time Progress** - Watch generation and testing progress live
+
+## Requirements
+
+- Python 3.10 or higher
+- cookiecutter 2.6+
+
+## Contributing
+
+Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## Contributors ✨
 

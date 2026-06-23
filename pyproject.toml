@@ -26,7 +26,10 @@ classifiers = [
 ]
 
 dependencies = [
+  "cookiecutter>=2.6,<3",
+  "pluggy>=1.5,<2",
   "rich>=10",
+  "textual>=1,<2",
   "typer>=0.15,<1",
 ]
 urls."Bug Tracker" = "https://github.com/browniebroke/cookie-taster/issues"
@@ -34,6 +37,9 @@ urls.Changelog = "https://github.com/browniebroke/cookie-taster/blob/main/CHANGE
 urls.documentation = "https://cookie-taster.readthedocs.io"
 urls.repository = "https://github.com/browniebroke/cookie-taster"
 scripts.cookie-taster = "cookie_taster.cli:app"
+
+[project.entry-points."cookie_taster.tasters"]
+example = "cookie_taster.tasters.example:ExampleTaster"
 
 [dependency-groups]
 dev = [
