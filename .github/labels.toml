@@ -97,8 +97,3 @@ description = "Automatically closes if no answer after a delay"
 color = "0E8A16"
 name = "fund"
 description = "Add a section linking to polar.sh for funding the issue."
-
-[test]
-color = "0E8A16"
-name = "test"
-description = "Just testing that labels can be created"
