@@ -41,7 +41,7 @@ dev = [
   "coverage",
   "pytest>=9,<10",
   "pytest-cov>=7,<8",
-  "ty==0.0.76",
+  "ty==0.0.77",
 ]
 docs = [
   "furo>=2023.5.20; python_version>='3.11'",
