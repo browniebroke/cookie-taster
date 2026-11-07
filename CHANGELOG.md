@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0 (2026-11-07)
+
+### Features
+
+- Drop support for python 3.10 ([`50f76eb`](https://github.com/browniebroke/cookie-taster/commit/50f76eb1f3e740f9390c4c612296455d8b673dea))
+
 ## v1.1.0 (2026-08-07)
 
 ### Features
